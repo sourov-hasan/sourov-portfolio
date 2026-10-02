@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { usePageMotion } from "./use-page-motion";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -94,26 +95,46 @@ function ThemeToggle() {
   );
 }
 
+const sectionIds = navItems.map(([, id]) => id);
+
 function Header() {
   const [open, setOpen] = useState(false);
+  const { active, scrolled, progress } = usePageMotion(sectionIds);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
-    <header className="site-header">
-      <a href="#home" className="brand-mark" aria-label="Md Sourov Hasan — home">MSH<span>.</span></a>
-      <nav className="desktop-nav" aria-label="Main navigation">
-        {navItems.map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}
-      </nav>
-      <div className="header-actions">
-        <ThemeToggle />
-        <Button className="menu-button" variant="ghost" size="icon" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}>
-          {open ? <X /> : <Menu />}
-        </Button>
-      </div>
-      {open && (
-        <nav className="mobile-nav" aria-label="Mobile navigation">
-          {navItems.map(([label, id]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}
+    <>
+      <a href="#about" className="skip-link">Skip to content</a>
+      <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
+        <span className="scroll-progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
+        <a href="#home" className="brand-mark" aria-label="Md Sourov Hasan — home">MSH<span>.</span></a>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {navItems.map(([label, id]) => (
+            <a key={id} href={`#${id}`} className={active === id ? "is-active" : undefined} aria-current={active === id ? "true" : undefined}>{label}</a>
+          ))}
         </nav>
-      )}
-    </header>
+        <div className="header-actions">
+          <ThemeToggle />
+          <Button className="menu-button" variant="ghost" size="icon" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}>
+            {open ? <X /> : <Menu />}
+          </Button>
+        </div>
+        {open && (
+          <nav className="mobile-nav" aria-label="Mobile navigation">
+            {navItems.map(([label, id], i) => (
+              <a key={id} href={`#${id}`} style={{ animationDelay: `${i * 40}ms` }} className={active === id ? "is-active" : undefined} onClick={() => setOpen(false)}>{label}</a>
+            ))}
+          </nav>
+        )}
+      </header>
+      <a href="#home" className={`back-to-top${progress > 0.15 ? " is-shown" : ""}`} aria-label="Back to top">↑</a>
+    </>
   );
 }
 
