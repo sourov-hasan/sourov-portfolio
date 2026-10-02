@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { z } from "zod";
 
-import portrait from "@/assets/sourov-editorial-portrait.jpg";
+import portrait from "@/assets/sourov-profile.jpg";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -181,7 +181,7 @@ export function PortfolioPage() {
           </div>
           <div className="hero-visual animate-fade-in">
             <div className="portrait-frame">
-              <img src={portrait} width={1024} height={1280} alt="Editorial portrait of Md Sourov Hasan" />
+              <img src={portrait} width={731} height={727} alt="Portrait of Md Sourov Hasan" />
               <span className="portrait-label">Based in Bangladesh · 2026</span>
             </div>
             <div className="orbit-note note-one">01 / CODE</div>
