@@ -22,6 +22,7 @@ import {
 import { z } from "zod";
 
 import portrait from "@/assets/sourov-profile.jpg";
+import { ChatWidget } from "@/components/chat-widget";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -316,6 +317,7 @@ export function PortfolioPage() {
           <ContactForm />
         </section>
       </main>
+      <ChatWidget />
       <footer><a href="#home" className="brand-mark">MSH<span>.</span></a><p>Designed & built with curiosity, code, and continuous learning.</p><p>© 2026 Md Sourov Hasan.</p></footer>
     </div>
   );
