@@ -54,12 +54,5 @@ export async function replyAsSourov(history: ChatMessage[]): Promise<string> {
     },
   });
 
-  try {
-    return await result.text;
-  } catch (error) {
-    for await (const part of result.fullStream) {
-      if (part.type === "error") console.error("stream part error", part.error);
-    }
-    throw error;
-  }
+  return await result.text;
 }
