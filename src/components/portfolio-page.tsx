@@ -317,6 +317,7 @@ export function PortfolioPage() {
           <ContactForm />
         </section>
       </main>
+      <ChatWidget />
       <footer><a href="#home" className="brand-mark">MSH<span>.</span></a><p>Designed & built with curiosity, code, and continuous learning.</p><p>© 2026 Md Sourov Hasan.</p></footer>
     </div>
   );
