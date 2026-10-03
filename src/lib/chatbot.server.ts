@@ -35,13 +35,13 @@ export async function replyAsSourov(history: ChatMessage[]): Promise<string> {
     headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
   });
 
-  const messages: ModelMessage[] = [
-    { role: "system", content: SYSTEM_PROMPT },
-    ...history.slice(-12).map((m) => ({ role: m.role, content: m.content }) as ModelMessage),
-  ];
+  const messages: ModelMessage[] = history
+    .slice(-12)
+    .map((m) => ({ role: m.role, content: m.content }) as ModelMessage);
 
   const result = streamText({
     model: provider.responses(MODEL),
+    system: SYSTEM_PROMPT,
     messages,
     providerOptions: {
       openai: {
