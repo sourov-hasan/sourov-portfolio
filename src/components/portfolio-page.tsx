@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
+import emailjs from "@emailjs/browser";
 import { usePageMotion } from "./use-page-motion";
 import {
   ArrowDownRight,
@@ -148,20 +149,38 @@ function SectionHeading({ eyebrow, title, aside }: { eyebrow: string; title: str
   );
 }
 
+const EMAILJS_SERVICE_ID = "service_hyvncxr";
+const EMAILJS_TEMPLATE_ID = "template_erxou5c";
+const EMAILJS_PUBLIC_KEY = "Wt9cFAz3vDikHbWYd";
+
 function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "error" | "success">("idle");
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const [status, setStatus] = useState<"idle" | "sending" | "error" | "success">("idle");
+  const [mailtoHref, setMailtoHref] = useState<string | null>(null);
+
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const result = contactSchema.safeParse(Object.fromEntries(form));
+    const form = event.currentTarget;
+    const result = contactSchema.safeParse(Object.fromEntries(new FormData(form)));
     if (!result.success) {
       setStatus("error");
       return;
     }
     const { name, email, subject, message } = result.data;
     const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    window.location.href = `mailto:souov.hasan373@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setStatus("success");
+    setMailtoHref(`mailto:souov.hasan373@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+    setStatus("sending");
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        { from_name: name, from_email: email, reply_to: email, subject, message },
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -172,9 +191,16 @@ function ContactForm() {
       </div>
       <label>Subject<input name="subject" type="text" maxLength={140} required placeholder="What would you like to discuss?" /></label>
       <label>Message<textarea name="message" rows={5} minLength={10} maxLength={1200} required placeholder="Tell me a little about your idea..." /></label>
-      {status === "error" && <p className="form-status error" role="alert">Please complete every field with a valid email and at least 10 message characters.</p>}
-      {status === "success" && <p className="form-status success" role="status"><CheckCircle2 /> Your email app is ready with the message.</p>}
-      <Button type="submit" size="lg">Compose message <ArrowUpRight /></Button>
+      {status === "error" && (
+        <p className="form-status error" role="alert">
+          The message could not be sent. Please check every field, or <a href={mailtoHref ?? "mailto:souov.hasan373@gmail.com"}>send it through your email app</a> instead.
+        </p>
+      )}
+      {status === "sending" && <p className="form-status" role="status">Sending your message…</p>}
+      {status === "success" && <p className="form-status success" role="status"><CheckCircle2 /> Message sent — I'll get back to you soon.</p>}
+      <Button type="submit" size="lg" disabled={status === "sending"}>
+        {status === "sending" ? "Sending…" : <>Compose message <ArrowUpRight /></>}
+      </Button>
     </form>
   );
 }
