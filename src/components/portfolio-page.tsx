@@ -22,6 +22,7 @@ import {
 import { z } from "zod";
 
 import portrait from "@/assets/sourov-profile.jpg";
+import { ChatWidget } from "@/components/chat-widget";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
