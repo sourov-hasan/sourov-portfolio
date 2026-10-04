@@ -22,6 +22,14 @@ import {
 import { z } from "zod";
 
 import portrait from "@/assets/sourov-profile.jpg";
+import projectItmPortal from "@/assets/project-itm-portal.jpg";
+import projectBondhu from "@/assets/project-bondhu.jpg";
+import projectDisasterRelief from "@/assets/project-disaster-relief.jpg";
+import projectHousePrice from "@/assets/project-house-price.jpg";
+import projectAmazonReviews from "@/assets/project-amazon-reviews.jpg";
+import projectFakeNews from "@/assets/project-fake-news.jpg";
+import projectTaskManager from "@/assets/project-task-manager.jpg";
+import projectEcommerce from "@/assets/project-ecommerce.jpg";
 import { ChatWidget } from "@/components/chat-widget";
 import { Button } from "@/components/ui/button";
 
