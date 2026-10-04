@@ -267,6 +267,8 @@ function ContactForm() {
 }
 
 export function PortfolioPage() {
+  const [projectFilter, setProjectFilter] = useState<"all" | ProjectCategory>("all");
+  const visibleProjects = projectFilter === "all" ? projects : projects.filter((p) => p.category === projectFilter);
   return (
     <div className="portfolio-shell">
       <Header />
