@@ -43,15 +43,67 @@ const navItems = [
   ["Contact", "contact"],
 ] as const;
 
-const projects = [
-  { n: "01", title: "Department of ITM Web Portal", role: "Full-Stack / Backend Developer", tech: "HTML · CSS · JavaScript · PHP · MySQL", tone: "project-acid", desc: "A centralized portal connecting department information, courses, faculty, student profiles, notices, learning resources, and administration." },
-  { n: "02", title: "Bondhu", role: "Backend Developer & Testing Engineer", tech: "Backend · Database · Testing", tone: "project-coral", desc: "A collaborative software project focused on server-side functionality, system integration, debugging, testing, and multi-role teamwork." },
-  { n: "03", title: "Disaster Relief Management", role: "Database Designer / Developer", tech: "MySQL · SQL · ER Modeling", tone: "project-cyan", desc: "A normalized relational system coordinating victims, volunteers, resources, donations, and relief activities with strong data integrity." },
-  { n: "04", title: "House Price Predictor", role: "ML / Application Developer", tech: "Python · Pandas · Scikit-learn", tone: "project-sun", desc: "An end-to-end machine learning pipeline transformed from processed data and evaluated models into a usable prediction interface." },
-  { n: "05", title: "Amazon Review Analysis", role: "ML / Application Developer", tech: "Python · NLP · Machine Learning", tone: "project-paper", desc: "Text preprocessing, exploratory analysis, model training, evaluation, and web application integration for product reviews." },
-  { n: "06", title: "Fake News Classifier", role: "ML / Application Developer", tech: "Python · NLP · Scikit-learn", tone: "project-paper", desc: "A text classification workflow spanning dataset cleaning, feature extraction, model evaluation, prediction, and a web UI." },
-  { n: "07", title: "Task Manager", role: "Application Developer", tech: "CRUD · Database · Backend", tone: "project-paper", desc: "A practical task workflow with creation, editing, completion status, deletion, persistence, and backend integration." },
-  { n: "08", title: "E-Commerce Application", role: "Full-Stack Application Developer", tech: "Auth · Cart · Orders · Admin", tone: "project-paper", desc: "A complete commerce workflow covering products, categories, search, cart, profiles, orders, database integration, and administration." },
+type ProjectCategory = "university" | "ai-ml" | "app-dev";
+
+const projectFilters: { id: "all" | ProjectCategory; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "university", label: "University Projects" },
+  { id: "ai-ml", label: "AI / ML" },
+  { id: "app-dev", label: "Application Development" },
+];
+
+// ─────────────────────────────────────────────────────────────
+// ADD YOUR LINKS HERE: for each project, replace the "#" values
+// of `github` with your GitHub repository URL and `live` with
+// your deployed project URL. Example:
+//   github: "https://github.com/sourov-hasan/itm-portal",
+//   live: "https://itm-portal.vercel.app",
+// ─────────────────────────────────────────────────────────────
+const projects: {
+  n: string; title: string; role: string; category: ProjectCategory;
+  tech: string[]; desc: string; details: string; image: string;
+  github: string; live: string;
+}[] = [
+  { n: "01", title: "Department of ITM Web Portal", role: "Full-Stack / Backend Developer", category: "university",
+    tech: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"], image: projectItmPortal,
+    desc: "A centralized portal connecting department information, courses, faculty, student profiles, notices, learning resources, and administration.",
+    details: "Built end-to-end for the ITM department: dynamic course and faculty pages, student profiles, a notice board, and a resource library — all backed by a MySQL database with PHP server-side logic and an admin panel for content management.",
+    github: "#", live: "#" },
+  { n: "02", title: "Bondhu", role: "Backend Developer & Testing Engineer", category: "university",
+    tech: ["Backend", "Database", "Testing", "Teamwork"], image: projectBondhu,
+    desc: "A collaborative software project focused on server-side functionality, system integration, debugging, testing, and multi-role teamwork.",
+    details: "A team-built application where I owned the server side: API logic, database integration, and debugging. I also led testing — writing test cases, tracking defects, and verifying fixes — across a multi-role agile workflow.",
+    github: "#", live: "#" },
+  { n: "03", title: "Disaster Relief Management", role: "Database Designer / Developer", category: "university",
+    tech: ["MySQL", "SQL", "ER Modeling", "Normalization"], image: projectDisasterRelief,
+    desc: "A normalized relational system coordinating victims, volunteers, resources, donations, and relief activities with strong data integrity.",
+    details: "Designed the full data layer for disaster response: ER modeling, normalized schema (3NF), and SQL queries coordinating victims, volunteers, resources, donations, and relief operations with referential integrity and reporting views.",
+    github: "#", live: "#" },
+  { n: "04", title: "House Price Predictor", role: "ML / Application Developer", category: "ai-ml",
+    tech: ["Python", "Pandas", "Scikit-learn", "Web UI", "Deployment"], image: projectHousePrice,
+    desc: "An end-to-end machine learning pipeline transformed from processed data and evaluated models into a usable prediction interface.",
+    details: "Full ML lifecycle: data cleaning with Pandas, feature engineering, model training and evaluation with Scikit-learn, then wrapped in a deployed web UI where users enter property details and get instant price predictions.",
+    github: "#", live: "#" },
+  { n: "05", title: "Amazon Review Analysis App", role: "ML / Application Developer", category: "ai-ml",
+    tech: ["Python", "NLP", "Machine Learning", "Web App"], image: projectAmazonReviews,
+    desc: "Text preprocessing, exploratory analysis, model training, evaluation, and web application integration for product reviews.",
+    details: "An end-to-end NLP application: cleaning and vectorizing review text, exploratory sentiment analysis, training and evaluating classification models, and serving predictions through a web app that scores any review as positive or negative.",
+    github: "#", live: "#" },
+  { n: "06", title: "Fake News Classifier App", role: "ML / Application Developer", category: "ai-ml",
+    tech: ["Python", "NLP", "Scikit-learn", "Web UI"], image: projectFakeNews,
+    desc: "A text classification workflow spanning dataset cleaning, feature extraction, model evaluation, prediction, and a web UI.",
+    details: "An end-to-end classifier that flags fake news: dataset cleaning, TF-IDF feature extraction, model comparison and evaluation, and a web interface where pasting an article returns a real/fake verdict with confidence.",
+    github: "#", live: "#" },
+  { n: "07", title: "Task Manager", role: "Application Developer", category: "app-dev",
+    tech: ["CRUD", "Database", "Backend", "Persistence"], image: projectTaskManager,
+    desc: "A practical task workflow with creation, editing, completion status, deletion, persistence, and backend integration.",
+    details: "A complete productivity app: create, edit, complete, and delete tasks with status tracking, persistent storage, and a backend API keeping every client in sync — focused on clean CRUD architecture and reliable state handling.",
+    github: "#", live: "#" },
+  { n: "08", title: "E-Commerce Application", role: "Full-Stack Application Developer", category: "app-dev",
+    tech: ["Auth", "Cart", "Orders", "Admin", "Database"], image: projectEcommerce,
+    desc: "A complete commerce workflow covering products, categories, search, cart, profiles, orders, database integration, and administration.",
+    details: "A full commerce platform: product catalog with categories and search, user authentication and profiles, cart and checkout flow, order history, and an admin dashboard for managing inventory and orders — all on a relational database.",
+    github: "#", live: "#" },
 ];
 
 const skillGroups = [
