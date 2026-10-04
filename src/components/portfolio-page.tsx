@@ -345,11 +345,35 @@ export function PortfolioPage() {
 
         <section id="projects" className="content-section projects-section">
           <SectionHeading eyebrow="05 / Selected work" title="Projects as proof of progress." aside="Academic and independent work across web, data, and intelligent applications." />
-          <div className="projects-grid">
-            {projects.map((project, i) => <article key={project.title} className={`project-card ${project.tone} ${i < 4 ? 'project-featured' : ''}`}>
-              <div className="project-top"><span>{project.n}</span><ArrowUpRight /></div>
-              <div className="project-visual" aria-hidden="true"><span>{project.tech.split(' · ')[0]}</span><div className="system-lines"><i /><i /><i /></div></div>
-              <p className="project-role">{project.role}</p><h3>{project.title}</h3><p>{project.desc}</p><div className="project-tech">{project.tech}</div>
+          <div className="project-filters" role="tablist" aria-label="Filter projects by category">
+            {projectFilters.map((filter) => (
+              <button key={filter.id} type="button" role="tab" aria-selected={projectFilter === filter.id}
+                className={`project-filter ${projectFilter === filter.id ? 'is-active' : ''}`}
+                onClick={() => setProjectFilter(filter.id)}>
+                {filter.label}
+                <span className="project-filter-count">{filter.id === 'all' ? projects.length : projects.filter((p) => p.category === filter.id).length}</span>
+              </button>
+            ))}
+          </div>
+          <div className="projects-grid" key={projectFilter}>
+            {visibleProjects.map((project) => <article key={project.title} className="project-card">
+              <div className="project-media">
+                <img src={project.image} alt={`${project.title} preview`} loading="lazy" width={1024} height={768} />
+                <div className="project-overlay">
+                  <p className="project-overlay-label">About this project</p>
+                  <p className="project-overlay-text">{project.details}</p>
+                </div>
+              </div>
+              <div className="project-body">
+                <div className="project-top"><span>{project.n}</span><p className="project-role">{project.role}</p></div>
+                <h3>{project.title}</h3>
+                <p className="project-desc">{project.desc}</p>
+                <div className="project-tech">{project.tech.map((t) => <span key={t}>{t}</span>)}</div>
+                <div className="project-actions">
+                  <a href={project.github} target="_blank" rel="noreferrer" className="project-btn project-btn-code"><Github /> Code</a>
+                  <a href={project.live} target="_blank" rel="noreferrer" className="project-btn project-btn-live"><ArrowUpRight /> Live App</a>
+                </div>
+              </div>
             </article>)}
           </div>
         </section>
