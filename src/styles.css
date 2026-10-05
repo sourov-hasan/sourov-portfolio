@@ -336,3 +336,13 @@ footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
 @media (prefers-reduced-motion: reduce) {
   .chat-panel, .chat-bubble { animation: none; }
 }
+
+/* ===== CV download button ===== */
+.cv-download { display: inline-flex; align-items: center; gap: .45rem; padding: .55rem 1.05rem; border-radius: 999px; background: var(--lime); color: var(--surface-dark); font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-decoration: none; border: 1px solid var(--lime); transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, background .3s; }
+.cv-download svg { width: .95rem; height: .95rem; transition: transform .3s; }
+.cv-download:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px color-mix(in oklab, var(--lime) 60%, transparent); }
+.cv-download:hover svg { transform: translateY(2px); }
+.cv-download:active { transform: translateY(0); }
+.mobile-cv-download { display: flex; align-items: center; justify-content: center; gap: .5rem; margin-top: .75rem; padding: .85rem 1.25rem; border-radius: 999px; background: var(--lime); color: var(--surface-dark); font-weight: 800; text-decoration: none; }
+.mobile-cv-download svg { width: 1rem; height: 1rem; }
+@media (hover: none) { .cv-download:hover { transform: none; box-shadow: none; } }
