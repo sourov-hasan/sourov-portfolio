@@ -160,6 +160,26 @@ function ThemeToggle() {
 
 const sectionIds = navItems.map(([, id]) => id);
 
+// Fetch the CV and download it from browser memory (blob) so it works inside
+// the authenticated preview frame, where a plain <a download> fetch gets a 401.
+async function downloadCv() {
+  try {
+    const res = await fetch("/sourov-hasan-cv.pdf");
+    if (!res.ok) throw new Error(`CV fetch failed: ${res.status}`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Md-Sourov-Hasan-CV.pdf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch {
+    window.open("/sourov-hasan-cv.pdf", "_blank", "noopener");
+  }
+}
+
 function Header() {
   const [open, setOpen] = useState(false);
   const { active, scrolled, progress } = usePageMotion(sectionIds);
@@ -183,9 +203,9 @@ function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <a href="/sourov-hasan-cv.pdf" download="Md-Sourov-Hasan-CV.pdf" className="cv-download" aria-label="Download CV (PDF)">
+          <button type="button" onClick={downloadCv} className="cv-download" aria-label="Download CV (PDF)">
             <Download /> <span>CV</span>
-          </a>
+          </button>
           <ThemeToggle />
           <Button className="menu-button" variant="ghost" size="icon" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}>
             {open ? <X /> : <Menu />}
@@ -196,9 +216,9 @@ function Header() {
             {navItems.map(([label, id], i) => (
               <a key={id} href={`#${id}`} style={{ animationDelay: `${i * 40}ms` }} className={active === id ? "is-active" : undefined} onClick={() => setOpen(false)}>{label}</a>
             ))}
-            <a href="/sourov-hasan-cv.pdf" download="Md-Sourov-Hasan-CV.pdf" className="mobile-cv-download" style={{ animationDelay: `${navItems.length * 40}ms` }} onClick={() => setOpen(false)}>
+            <button type="button" className="mobile-cv-download" style={{ animationDelay: `${navItems.length * 40}ms` }} onClick={() => { setOpen(false); downloadCv(); }}>
               <Download /> Download CV
-            </a>
+            </button>
           </nav>
         )}
       </header>
