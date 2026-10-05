@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import emailjs from "@emailjs/browser";
 import { usePageMotion } from "./use-page-motion";
+import { useExternalLinks } from "./use-external-links";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -296,9 +297,21 @@ function ContactForm() {
 export function PortfolioPage() {
   const [projectFilter, setProjectFilter] = useState<"all" | ProjectCategory>("all");
   const visibleProjects = projectFilter === "all" ? projects : projects.filter((p) => p.category === projectFilter);
+  const { blockedUrl, dismiss } = useExternalLinks();
+  const [copied, setCopied] = useState(false);
   return (
     <div className="portfolio-shell">
       <Header />
+      {blockedUrl && (
+        <div className="link-notice" role="alert">
+          <p>Your browser blocked the new tab. Open the link manually:</p>
+          <div className="link-notice-actions">
+            <a href={blockedUrl} target="_top" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>Open link</a>
+            <button type="button" onClick={() => { void navigator.clipboard?.writeText(blockedUrl).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1800); }); }}>{copied ? "Copied!" : "Copy link"}</button>
+            <button type="button" aria-label="Close" onClick={dismiss}>×</button>
+          </div>
+        </div>
+      )}
       <main>
         <section id="home" className="hero-section">
           <div className="hero-copy animate-fade-in">
@@ -311,8 +324,8 @@ export function PortfolioPage() {
               <Button asChild variant="outline" size="lg"><a href="#contact">Let’s connect</a></Button>
             </div>
             <div className="social-row">
-              <a href="https://github.com/sourov-hasan" target="_blank" rel="noreferrer"><Github /> GitHub</a>
-              <a href="https://www.linkedin.com/in/sourov-hasan-emon" target="_blank" rel="noreferrer"><Linkedin /> LinkedIn</a>
+              <a href="https://github.com/sourov-hasan" target="_blank" rel="noopener noreferrer"><Github /> GitHub</a>
+              <a href="https://www.linkedin.com/in/sourov-hasan-emon" target="_blank" rel="noopener noreferrer"><Linkedin /> LinkedIn</a>
               <a href="mailto:souov.hasan373@gmail.com"><Mail /> Email</a>
             </div>
           </div>
@@ -399,8 +412,8 @@ export function PortfolioPage() {
                 <p className="project-desc">{project.desc}</p>
                 <div className="project-tech">{project.tech.map((t) => <span key={t}>{t}</span>)}</div>
                 <div className="project-actions">
-                  <a href={project.github} target="_blank" rel="noreferrer" className="project-btn project-btn-code"><Github /> Code</a>
-                  <a href={project.live} target="_blank" rel="noreferrer" className="project-btn project-btn-live"><ArrowUpRight /> Live App</a>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-btn project-btn-code"><Github /> Code</a>
+                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="project-btn project-btn-live"><ArrowUpRight /> Live App</a>
                 </div>
               </div>
             </article>)}
@@ -425,7 +438,7 @@ export function PortfolioPage() {
 
         <section id="contact" className="content-section contact-section">
           <div className="contact-intro"><p className="eyebrow">08 / Contact</p><h2>Let’s build something <span>meaningful.</span></h2><p>Interested in collaboration, technology projects, learning opportunities, or simply connecting? Feel free to reach out.</p>
-            <div className="contact-links"><a href="mailto:souov.hasan373@gmail.com"><Mail /> souov.hasan373@gmail.com</a><a href="https://wa.me/8801975435003" target="_blank" rel="noreferrer"><ArrowUpRight /> WhatsApp</a><span>Bangladesh · UTC+6</span></div>
+            <div className="contact-links"><a href="mailto:souov.hasan373@gmail.com"><Mail /> souov.hasan373@gmail.com</a><a href="https://wa.me/8801975435003" target="_blank" rel="noopener noreferrer"><ArrowUpRight /> WhatsApp</a><span>Bangladesh · UTC+6</span></div>
           </div>
           <ContactForm />
         </section>
