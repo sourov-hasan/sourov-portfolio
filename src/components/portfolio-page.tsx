@@ -183,6 +183,9 @@ function Header() {
           ))}
         </nav>
         <div className="header-actions">
+          <a href="/sourov-hasan-cv.pdf" download="Md-Sourov-Hasan-CV.pdf" className="cv-download" aria-label="Download CV (PDF)">
+            <Download /> <span>CV</span>
+          </a>
           <ThemeToggle />
           <Button className="menu-button" variant="ghost" size="icon" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}>
             {open ? <X /> : <Menu />}
@@ -193,6 +196,9 @@ function Header() {
             {navItems.map(([label, id], i) => (
               <a key={id} href={`#${id}`} style={{ animationDelay: `${i * 40}ms` }} className={active === id ? "is-active" : undefined} onClick={() => setOpen(false)}>{label}</a>
             ))}
+            <a href="/sourov-hasan-cv.pdf" download="Md-Sourov-Hasan-CV.pdf" className="mobile-cv-download" style={{ animationDelay: `${navItems.length * 40}ms` }} onClick={() => setOpen(false)}>
+              <Download /> Download CV
+            </a>
           </nav>
         )}
       </header>
