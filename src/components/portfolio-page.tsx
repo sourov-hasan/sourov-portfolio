@@ -7,6 +7,7 @@ import {
   CheckCircle2,
   Code2,
   Database,
+  Download,
   Github,
   Layers3,
   Linkedin,
