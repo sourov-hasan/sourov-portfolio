@@ -346,3 +346,22 @@ footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
 .mobile-cv-download { display: flex; align-items: center; justify-content: center; gap: .5rem; margin-top: .75rem; padding: .85rem 1.25rem; border-radius: 999px; background: var(--lime); color: var(--surface-dark); font-family: inherit; font-size: 1rem; font-weight: 800; text-decoration: none; border: 1px solid var(--lime); cursor: pointer; }
 .mobile-cv-download svg { width: 1rem; height: 1rem; }
 @media (hover: none) { .cv-download:hover { transform: none; box-shadow: none; } }
+
+/* Blocked-popup notice for outside links */
+.link-notice {
+  position: fixed; left: 50%; bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  z-index: 80; width: min(92vw, 30rem); padding: 1rem 1.1rem; border-radius: 1rem;
+  background: var(--card); color: var(--card-foreground); border: 1px solid var(--border);
+  box-shadow: 0 18px 50px -20px color-mix(in oklab, var(--foreground) 45%, transparent);
+  animation: link-notice-in .3s ease both; font-size: .9rem;
+}
+.link-notice p { margin: 0 0 .7rem; }
+.link-notice-actions { display: flex; gap: .5rem; align-items: center; }
+.link-notice-actions a, .link-notice-actions button {
+  padding: .45rem .9rem; border-radius: 999px; border: 1px solid var(--border);
+  background: transparent; color: inherit; font: inherit; cursor: pointer; text-decoration: none;
+}
+.link-notice-actions a { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+.link-notice-actions button[aria-label="Close"] { margin-left: auto; padding: .3rem .7rem; }
+@keyframes link-notice-in { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@media (prefers-reduced-motion: reduce) { .link-notice { animation: none; } }
