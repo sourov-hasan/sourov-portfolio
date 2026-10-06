@@ -297,21 +297,9 @@ function ContactForm() {
 export function PortfolioPage() {
   const [projectFilter, setProjectFilter] = useState<"all" | ProjectCategory>("all");
   const visibleProjects = projectFilter === "all" ? projects : projects.filter((p) => p.category === projectFilter);
-  const { blockedUrl, dismiss } = useExternalLinks();
-  const [copied, setCopied] = useState(false);
   return (
     <div className="portfolio-shell">
       <Header />
-      {blockedUrl && (
-        <div className="link-notice" role="alert">
-          <p>Your browser blocked the new tab. Open the link manually:</p>
-          <div className="link-notice-actions">
-            <a href={blockedUrl} target="_top" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>Open link</a>
-            <button type="button" onClick={() => { void navigator.clipboard?.writeText(blockedUrl).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1800); }); }}>{copied ? "Copied!" : "Copy link"}</button>
-            <button type="button" aria-label="Close" onClick={dismiss}>×</button>
-          </div>
-        </div>
-      )}
       <main>
         <section id="home" className="hero-section">
           <div className="hero-copy animate-fade-in">
