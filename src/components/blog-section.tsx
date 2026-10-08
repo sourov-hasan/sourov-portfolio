@@ -62,7 +62,7 @@ export function BlogSection() {
     setVisitor(getVisitorId());
     void load();
     const m = window.location.hash.match(/^#post-(.+)$/);
-    if (m) setOpenId(m[1]);
+    if (m?.[1]) setOpenId(m[1]);
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
     return () => sub.subscription.unsubscribe();
