@@ -261,12 +261,14 @@ function AuthDialog({ onClose }: { onClose: () => void }) {
       <form className="blog-dialog" onClick={(e) => e.stopPropagation()} onSubmit={submit}>
         <button type="button" className="blog-close" onClick={onClose} aria-label="Close"><X /></button>
         <h3>{mode === "in" ? "Author sign in" : "Create author account"}</h3>
-        <p className="blog-muted">Only the site owner can publish posts.</p>
+        <p className="blog-muted">For the site owner only. Visitors don't need an account to read the blog.</p>
         <label>Email<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" /></label>
         <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} autoComplete={mode === "in" ? "current-password" : "new-password"} /></label>
         {msg && <p className="blog-muted" role="status">{msg}</p>}
         <button type="submit" className="blog-write-btn" disabled={busy}>{busy ? "Please wait…" : mode === "in" ? "Sign in" : "Sign up"}</button>
-        <button type="button" className="blog-link-btn" onClick={() => setMode(mode === "in" ? "up" : "in")}>{mode === "in" ? "First time? Create the account" : "Have an account? Sign in"}</button>
+        {(mode === "up" || email.trim().toLowerCase() === "sourov.hasan373e@gmail.com") && (
+          <button type="button" className="blog-link-btn" onClick={() => setMode(mode === "in" ? "up" : "in")}>{mode === "in" ? "First time? Create the owner account" : "Have an account? Sign in"}</button>
+        )}
       </form>
     </div>
   );
