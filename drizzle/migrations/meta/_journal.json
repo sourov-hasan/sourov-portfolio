@@ -8,6 +8,13 @@
       "when": 1791452620839,
       "tag": "0000_owner_only_signup",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791452643048,
+      "tag": "0001_split_owner_triggers",
+      "breakpoints": true
     }
   ]
 }
