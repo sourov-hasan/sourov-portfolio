@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import emailjs from "@emailjs/browser";
 import { usePageMotion } from "./use-page-motion";
-import { useExternalLinks } from "./use-external-links";
+import { BlogSection } from "./blog-section";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -42,6 +42,7 @@ const navItems = [
   ["Services", "services"],
   ["Projects", "projects"],
   ["Journey", "journey"],
+  ["Blog", "blog"],
   ["Contact", "contact"],
 ] as const;
 
@@ -415,8 +416,10 @@ export function PortfolioPage() {
           </div>
         </section>
 
+        <BlogSection />
+
         <section className="content-section focus-section">
-          <SectionHeading eyebrow="07 / Current focus" title="Designing beyond the individual feature." />
+          <SectionHeading eyebrow="08 / Current focus" title="Designing beyond the individual feature." />
           <div className="architecture-map">
             <div className="architecture-core"><Network /><span>Primary direction</span><h3>System Design &<br />Software Architecture</h3></div>
             <div className="architecture-nodes">{['Scalability', 'Reliability', 'Security', 'Backend', 'Database', 'AI integration', 'Cloud', 'DevOps'].map((item, i) => <span key={item} style={{ '--i': i } as React.CSSProperties}>{item}</span>)}</div>
@@ -425,7 +428,7 @@ export function PortfolioPage() {
         </section>
 
         <section id="contact" className="content-section contact-section">
-          <div className="contact-intro"><p className="eyebrow">08 / Contact</p><h2>Let’s build something <span>meaningful.</span></h2><p>Interested in collaboration, technology projects, learning opportunities, or simply connecting? Feel free to reach out.</p>
+          <div className="contact-intro"><p className="eyebrow">09 / Contact</p><h2>Let’s build something <span>meaningful.</span></h2><p>Interested in collaboration, technology projects, learning opportunities, or simply connecting? Feel free to reach out.</p>
             <div className="contact-links"><a href="mailto:souov.hasan373@gmail.com"><Mail /> souov.hasan373@gmail.com</a><a href="https://wa.me/8801975435003" target="_blank" rel="noopener noreferrer"><ArrowUpRight /> WhatsApp</a><span>Bangladesh · UTC+6</span></div>
           </div>
           <ContactForm />

@@ -62,7 +62,7 @@ export function BlogSection() {
     setVisitor(getVisitorId());
     void load();
     const m = window.location.hash.match(/^#post-(.+)$/);
-    if (m) setOpenId(m[1]);
+    if (m?.[1]) setOpenId(m[1]);
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
     return () => sub.subscription.unsubscribe();
@@ -274,7 +274,7 @@ function AuthDialog({ onClose }: { onClose: () => void }) {
 
 function EditorDialog({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState(CATEGORIES[0]);
+  const [category, setCategory] = useState<string>("General");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [cover, setCover] = useState<File | null>(null);
@@ -291,7 +291,7 @@ function EditorDialog({ onClose, onSaved }: { onClose: () => void; onSaved: () =
       const { data: u } = await supabase.auth.getUser();
       const { error } = await supabase.from("blog_posts").insert({
         title: title.trim(), category, excerpt: excerpt.trim() || content.trim().slice(0, 180), content: content.trim(),
-        cover_url, pdf_url, pdf_name: pdf?.name ?? null, author_id: u.user?.id,
+        cover_url, pdf_url, pdf_name: pdf?.name ?? null, author_id: u.user?.id ?? null,
       });
       if (error) throw error;
       onSaved();
