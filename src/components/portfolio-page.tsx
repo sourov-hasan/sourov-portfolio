@@ -1,7 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import emailjs from "@emailjs/browser";
 import { usePageMotion } from "./use-page-motion";
-import { useExternalLinks } from "./use-external-links";
 import {
   ArrowDownRight,
   ArrowUpRight,
