@@ -257,7 +257,7 @@ function ContactForm() {
     }
     const { name, email, subject, message } = result.data;
     const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    setMailtoHref(`mailto:souov.hasan373@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+    setMailtoHref(`mailto:sourov.hasan373e@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
     setStatus("sending");
     try {
       await emailjs.send(
@@ -283,7 +283,7 @@ function ContactForm() {
       <label>Message<textarea name="message" rows={5} minLength={10} maxLength={1200} required placeholder="Tell me a little about your idea..." /></label>
       {status === "error" && (
         <p className="form-status error" role="alert">
-          The message could not be sent. Please check every field, or <a href={mailtoHref ?? "mailto:souov.hasan373@gmail.com"}>send it through your email app</a> instead.
+          The message could not be sent. Please check every field, or <a href={mailtoHref ?? "mailto:sourov.hasan373e@gmail.com"}>send it through your email app</a> instead.
         </p>
       )}
       {status === "sending" && <p className="form-status" role="status">Sending your message…</p>}
@@ -315,7 +315,7 @@ export function PortfolioPage() {
             <div className="social-row">
               <a href="https://github.com/sourov-hasan" target="_blank" rel="noopener noreferrer"><Github /> GitHub</a>
               <a href="https://www.linkedin.com/in/sourov-hasan-emon" target="_blank" rel="noopener noreferrer"><Linkedin /> LinkedIn</a>
-              <a href="mailto:souov.hasan373@gmail.com"><Mail /> Email</a>
+              <a href="mailto:sourov.hasan373e@gmail.com"><Mail /> Email</a>
             </div>
           </div>
           <div className="hero-visual animate-fade-in">
@@ -429,7 +429,7 @@ export function PortfolioPage() {
 
         <section id="contact" className="content-section contact-section">
           <div className="contact-intro"><p className="eyebrow">09 / Contact</p><h2>Let’s build something <span>meaningful.</span></h2><p>Interested in collaboration, technology projects, learning opportunities, or simply connecting? Feel free to reach out.</p>
-            <div className="contact-links"><a href="mailto:souov.hasan373@gmail.com"><Mail /> souov.hasan373@gmail.com</a><a href="https://wa.me/8801975435003" target="_blank" rel="noopener noreferrer"><ArrowUpRight /> WhatsApp</a><span>Bangladesh · UTC+6</span></div>
+            <div className="contact-links"><a href="mailto:sourov.hasan373e@gmail.com"><Mail /> sourov.hasan373e@gmail.com</a><a href="https://wa.me/8801975435003" target="_blank" rel="noopener noreferrer"><ArrowUpRight /> WhatsApp</a><span>Bangladesh · UTC+6</span></div>
           </div>
           <ContactForm />
         </section>

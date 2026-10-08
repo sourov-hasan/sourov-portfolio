@@ -49,7 +49,7 @@ export function ChatWidget() {
         {
           role: "assistant",
           content:
-            "Something went wrong on my end — please try again, or email me at souov.hasan373@gmail.com.",
+            "Something went wrong on my end — please try again, or email me at sourov.hasan373e@gmail.com.",
         },
       ]);
     } finally {

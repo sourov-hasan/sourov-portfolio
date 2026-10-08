@@ -21,7 +21,7 @@ export const chatWithSourov = createServerFn({ method: "POST" })
       console.error("chatbot error", error);
       return {
         reply:
-          "Sorry, I couldn't answer that just now — please try again in a moment, or email me at souov.hasan373@gmail.com.",
+          "Sorry, I couldn't answer that just now — please try again in a moment, or email me at sourov.hasan373e@gmail.com.",
       };
     }
   });
