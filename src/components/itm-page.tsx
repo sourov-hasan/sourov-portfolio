@@ -27,6 +27,7 @@ export function ItmPage() {
     setDark(!dark);
   };
   const selectedMajor = majors[major] ?? majors[0];
+  if (!selectedMajor) return null;
   const MajorIcon = selectedMajor.icon;
   const groups = filterItmCourses(semester, query);
   const count = groups.reduce((n, s) => n + s.courses.length, 0);
