@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import emailjs from "@emailjs/browser";
 import { usePageMotion } from "./use-page-motion";
 import { BlogSection } from "./blog-section";
@@ -338,6 +339,7 @@ export function PortfolioPage() {
               <p className="lead">I’m an ITM student and technology enthusiast who enjoys understanding how modern technologies solve real-world problems.</p>
               <p>My long-term goal is to specialize in system design and software architecture, while exploring how AI and machine learning can make modern software more useful and intelligent.</p>
               <blockquote>“I believe in learning through practical projects, continuous experimentation, and understanding how technologies work beyond the surface.”</blockquote>
+              <Button asChild size="lg" className="about-itm-link"><Link to="/itm">Explore ITM... <ArrowUpRight /></Link></Button>
             </div>
             <div className="profile-grid">
               {['ITM Student', 'Aspiring System Designer', 'AI/ML Enthusiast', 'Software Developer', 'Continuous Learner', 'Technology Explorer'].map((item, i) => <div key={item}><span>0{i + 1}</span><p>{item}</p></div>)}
