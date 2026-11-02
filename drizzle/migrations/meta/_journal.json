@@ -15,6 +15,13 @@
       "when": 1791452643048,
       "tag": "0001_split_owner_triggers",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793594730649,
+      "tag": "0002_restrict_blog_media_reads_to_admin_owner",
+      "breakpoints": true
     }
   ]
 }
